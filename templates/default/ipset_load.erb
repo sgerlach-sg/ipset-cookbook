@@ -11,7 +11,7 @@ exit 0
 <% if @os_plat == 'rhel' -%>
 
 #!/bin/sh
-/sbin/ipset restore < <%= @ipset_save_file %>
+/usr/sbin/ipset restore < <%= @ipset_save_file %>
 exit 0
 
 
