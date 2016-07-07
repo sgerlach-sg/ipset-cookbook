@@ -1,3 +1,18 @@
+#Debian template
+<% if @os_plat == 'debian' -%>
+
 #!/bin/sh
 /sbin/ipset restore -file <%= @ipset_save_file %>
 exit 0
+
+<% end -%>
+
+#RH and derivitaves template
+<% if @os_plat == 'rhel' -%>
+
+#!/bin/sh
+/sbin/ipset restore < <%= @ipset_save_file %>
+exit 0
+
+
+<% end -%>

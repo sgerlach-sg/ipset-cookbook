@@ -36,14 +36,29 @@ template '/usr/sbin/rebuild-ipset' do
   source 'rebuild-ipset.erb'
   mode '0755'
   variables(
-    hashbang: hashbang
+    hashbang: hashbang,
+    os_plat: node['platform_family']
   )
 end
 
-template '/etc/network/if-pre-up.d/00-ipset_load' do
-  source 'ipset_load.erb'
-  mode '0755'
-  variables(
-    ipset_save_file: '/etc/ipset/ipset-generated'
-  )
+if node['platform_family'] == 'debian'
+  template '/etc/network/if-pre-up.d/00-ipset_load' do
+    source 'ipset_load.erb'
+    mode '0755'
+    variables(
+      ipset_save_file: '/etc/ipset/ipset-generated',
+      os_plat: node['platform_family']
+    )
+  end
+end
+
+if node['platform_family'] == 'rhel'
+  template '/sbin/ifup-local' do
+    source 'ipset_load.erb'
+    mode '0755'
+    variables(
+      ipset_save_file: '/etc/ipset/ipset-generated',
+      os_plat: node['platform_family']
+    )
+  end 
 end

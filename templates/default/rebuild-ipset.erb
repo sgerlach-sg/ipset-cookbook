@@ -34,7 +34,13 @@ def load_ipset(data)
 
   write_ipset(OUTPUT, data)
 
+<% if @os_plat == 'debian' -%>  
   system("/sbin/ipset restore -file #{OUTPUT}")
+<% end -%>
+<% if @os_plat == 'rhel' -%>  
+  system("/usr/sbin/ipset restore < #{OUTPUT}")
+<% end -%>
+
 end
 
 
@@ -49,7 +55,9 @@ def generate_ipset
 
   data << "\n"
   data << "flush\n"
+<% if @os_plat == 'debian' -%>
   data << "destroy\n"
+<% end -%>
   data << "\n"
 
   Dir.foreach(SETS_D) do |e|

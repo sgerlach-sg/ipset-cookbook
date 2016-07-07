@@ -20,6 +20,7 @@ def whyrun_supported?
   true
 end
 
+
 use_inline_resources
 
 action :create do
@@ -36,7 +37,8 @@ action :create do
       name:    new_resource.name,
       type:    new_resource.type,
       options: new_resource.options,
-      entries: new_resource.entries
+      entries: new_resource.entries,
+      os_plat: node['platform_family']
     )
     mode '0644'
     backup false

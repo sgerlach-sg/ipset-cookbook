@@ -1,5 +1,23 @@
+#Debian template
+<% if @os_plat == 'debian' -%>
+
 create <%= @name %> <%= @type %> comment <%= options_to_s(@options) %>
 
 <% @entries.each_pair do |entry, entry_options| -%>
 add <%= @name %> <%= entry %> <%= options_to_s(entry_options) %>
+<% end -%>
+
+# End Template
+<% end -%>
+
+#RH and derivitaves template
+<% if @os_plat == 'rhel' -%>
+
+create  <%= @name %> <%= @type %> -exist
+
+<% @entries.each_pair do |entry, entry_options| -%>
+add <%= @name %> <%= entry %> <%= options_to_s(entry_options) %>
+<% end -%>
+
+# End Template
 <% end -%>

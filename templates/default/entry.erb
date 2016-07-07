@@ -1,1 +1,11 @@
-add <%= @set %> <%= @entry %> <%= options_to_s(@options) %> comment "<%= @comment %>"
+#Debian template
+<% if @os_plat == 'debian' -%>
+    add <%= @set %> <%= @entry %> <%= options_to_s(@options) %> comment "<%= @comment %>"
+<% end -%>
+
+
+#RH and derivitaves template
+<% if @os_plat == 'rhel' -%>
+    add <%= @set %> <%= @entry %> <%= options_to_s(@options) %> 
+<% end -%>
+
